@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("/teacher/auth")
@@ -29,9 +30,15 @@ public class TeacherController {
     }
 
 
-    @GetMapping("/login/teacher")
+    @GetMapping("/login")
     public String loginTeacher() {
         return "login";
+    }
+
+    @GetMapping("/fetch/all")
+    public ResponseEntity<List<TeacherModel>> fetchAllTeacher() throws Exception {
+        List<TeacherModel> fetchedTeachers = service.fetchAllTeacher();
+        return new ResponseEntity<>(fetchedTeachers, HttpStatus.OK);
     }
 
 

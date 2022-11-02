@@ -7,6 +7,8 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
+import java.util.List;
+
 
 public class TeacherRepositoryImpl implements TeacherRepository {
 
@@ -32,9 +34,19 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     public TeacherModel getTeacherById(String teacherId) {
         try {
             Query findQuery = new Query();
-            findQuery.addCriteria(new Criteria("teacherName").is(teacherId));
+            findQuery.addCriteria(new Criteria("teacherId").is(teacherId));
             return mongoOperations.find(findQuery, TeacherModel.class).get(0);
         } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public List<TeacherModel> getAllTeachers() {
+        try {
+            return mongoOperations.findAll(TeacherModel.class,"teacher");
+        }
+        catch (RuntimeException e){
             throw new RuntimeException(e);
         }
     }

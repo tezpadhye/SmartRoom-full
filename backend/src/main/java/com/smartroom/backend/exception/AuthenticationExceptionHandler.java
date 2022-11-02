@@ -66,6 +66,17 @@ public class AuthenticationExceptionHandler {
         return new ResponseEntity<>(notValidError, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(InvalidMatchingPasswordException.class)
+    public ResponseEntity<Object> handleInvalidMatchingPassword(InvalidMatchingPasswordException passwordException) {
+        ApiError apiError = new ApiError(
+                passwordException.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST
+        );
+
+        return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
+
     private void getInvalidFields(List<FieldError> errorList, List<InvalidField> invalidFields) {
 
         for (int index = 0; index < errorList.size(); index++) {

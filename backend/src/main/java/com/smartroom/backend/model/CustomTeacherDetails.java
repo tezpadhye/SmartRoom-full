@@ -29,7 +29,7 @@ public class CustomTeacherDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return model.getTeacherName();
+        return model.getTeacherId();
     }
 
     @Override
