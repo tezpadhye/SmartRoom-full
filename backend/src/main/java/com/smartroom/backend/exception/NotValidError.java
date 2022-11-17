@@ -1,6 +1,5 @@
 package com.smartroom.backend.exception;
 
-import com.smartroom.backend.model.InvalidField;
 import org.springframework.http.HttpStatus;
 
 import java.util.List;

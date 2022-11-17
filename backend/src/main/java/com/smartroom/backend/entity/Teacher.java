@@ -1,24 +1,23 @@
 package com.smartroom.backend.entity;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.List;
 
+@Document(value = "teacher")
 public class Teacher {
 
-    @NotNull
-    @NotEmpty
+    // teacher  + unique id
+    @Id
     private String teacherId;
 
     @NotNull
     @NotEmpty
     private String teacherName;
 
-    @NotNull
-    @NotEmpty
-    private String classTeacher;
-
-    private List<String> classes;
 
     @NotNull
     @NotEmpty
@@ -26,7 +25,20 @@ public class Teacher {
 
     @NotNull
     @NotEmpty
+    @Transient
     private String matchingPassword;
+
+    private  String role = "ROLE_TEACHER";
+
+    public Teacher() {
+    }
+
+    public Teacher(String teacherId, String teacherName, String password, String matchingPassword) {
+        this.teacherId = teacherId;
+        this.teacherName = teacherName;
+        this.password = password;
+        this.matchingPassword = matchingPassword;
+    }
 
     public String getTeacherId() {
         return teacherId;
@@ -42,22 +54,6 @@ public class Teacher {
 
     public void setTeacherName(String teacherName) {
         this.teacherName = teacherName;
-    }
-
-    public String getClassTeacher() {
-        return classTeacher;
-    }
-
-    public void setClassTeacher(String classTeacher) {
-        this.classTeacher = classTeacher;
-    }
-
-    public List<String> getClasses() {
-        return classes;
-    }
-
-    public void setClasses(List<String> classes) {
-        this.classes = classes;
     }
 
     public String getPassword() {
@@ -76,14 +72,22 @@ public class Teacher {
         this.matchingPassword = matchingPassword;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Teacher{" +
                 "teacherId='" + teacherId + '\'' +
                 ", teacherName='" + teacherName + '\'' +
-                ", isClassTeacher='" + classTeacher + '\'' +
-                ", classes=" + classes +
                 ", password='" + password + '\'' +
+                ", matchingPassword='" + matchingPassword + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
 }

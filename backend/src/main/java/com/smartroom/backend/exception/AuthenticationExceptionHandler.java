@@ -1,9 +1,9 @@
 package com.smartroom.backend.exception;
 
-import com.smartroom.backend.model.InvalidField;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -31,11 +31,11 @@ public class AuthenticationExceptionHandler {
     public ResponseEntity<Object> handleGenericException(RuntimeException runtimeException) {
         ApiError apiError = new ApiError(
                 runtimeException.getMessage(),
-                HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                HttpStatus.INTERNAL_SERVER_ERROR
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                HttpStatus.UNPROCESSABLE_ENTITY
         );
 
-        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(apiError, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)
@@ -75,6 +75,12 @@ public class AuthenticationExceptionHandler {
         );
 
         return new ResponseEntity<>(apiError, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleException(Exception exception){
+        ApiError apiError = new ApiError(exception.getMessage() ,HttpStatus.UNPROCESSABLE_ENTITY.value(),HttpStatus.UNPROCESSABLE_ENTITY);
+        return new ResponseEntity<>(apiError,HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     private void getInvalidFields(List<FieldError> errorList, List<InvalidField> invalidFields) {

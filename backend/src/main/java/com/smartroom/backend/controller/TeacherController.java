@@ -1,44 +1,30 @@
 package com.smartroom.backend.controller;
 
-import com.smartroom.backend.entity.Teacher;
-import com.smartroom.backend.model.TeacherModel;
-import com.smartroom.backend.service.TeacherAuthService;
+import com.smartroom.backend.entity.Student;
+import com.smartroom.backend.model.StudentModel;
+import com.smartroom.backend.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
-@RequestMapping("/teacher/auth")
+@RequestMapping("/teacher")
+@PreAuthorize("hasRole('TEACHER')")
 public class TeacherController {
 
-    private final TeacherAuthService service;
+    private final TeacherService teacherService;
 
     @Autowired
-    public TeacherController(TeacherAuthService service) {
-        this.service = service;
+    TeacherController(TeacherService teacherService){
+        this.teacherService = teacherService;
     }
 
 
-    @PostMapping("/signup")
-    public ResponseEntity<TeacherModel> signUpTeacher(@RequestBody @Valid Teacher teacher) throws Exception {
-        TeacherModel savedTeacher = service.createTeacher(teacher);
-        return new ResponseEntity<>(savedTeacher, HttpStatus.CREATED);
-    }
-
-
-    @GetMapping("/login")
-    public String loginTeacher() {
-        return "login";
-    }
-
-    @GetMapping("/fetch/all")
-    public ResponseEntity<List<TeacherModel>> fetchAllTeacher() throws Exception {
-        List<TeacherModel> fetchedTeachers = service.fetchAllTeacher();
-        return new ResponseEntity<>(fetchedTeachers, HttpStatus.OK);
+    @PostMapping("/create/student")
+    public StudentModel createStudent(@RequestBody @Valid Student student) throws Exception {
+        return teacherService.createStudent(student);
     }
 
 

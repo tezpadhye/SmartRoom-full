@@ -1,4 +1,4 @@
-package com.smartroom.backend.model;
+package com.smartroom.backend.exception;
 
 public class InvalidField {
 
