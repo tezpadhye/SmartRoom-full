@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.Random;
 import java.util.UUID;
 
 @Document(collection = "student")
@@ -21,7 +22,7 @@ public class Student {
     private String studentName;
 
 
-    private String password = UUID.randomUUID().toString();
+    private String password = String.valueOf(new Random().nextInt(999999));;
 
 
     private StudentParameter studentParameter;
