@@ -1,7 +1,6 @@
 package com.smartroom.backend.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -43,12 +42,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             token = requestToken.substring(7);
             try {
                 username = jwtTokenHelper.getUserNameFromToken(token);
-            }
-            catch (ExpiredJwtException e) {
+            } catch (ExpiredJwtException e) {
                 throw new RuntimeException("Jwt token Expired");
             }
-        }
-            else {
+        } else {
             System.out.println("Jwt token don't begin with bearer");
         }
 
@@ -68,7 +65,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             System.out.println("Username or security context is null");
         }
 
-        filterChain.doFilter(request,response);
+        filterChain.doFilter(request, response);
 
     }
 }
