@@ -48,7 +48,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(createdTeacher, HttpStatus.CREATED);
     }
 
-    @GetMapping("/teacher/login")
+    @PostMapping("/teacher/login")
     public ResponseEntity<JwtAuthResponse> loginTeacher(@RequestBody @Valid JwtAuthRequest jwtAuthRequest) throws Exception {
         authenticate(jwtAuthRequest.getUsername(), jwtAuthRequest.getPassword());
         UserDetails userDetails = userDetailsService.loadUserByUsername(jwtAuthRequest.getUsername());
@@ -56,7 +56,7 @@ public class AuthenticationController {
         return new ResponseEntity<>(new JwtAuthResponse(token), HttpStatus.OK);
     }
 
-    @GetMapping("/student/login")
+    @PostMapping("/student/login")
     public ResponseEntity<JwtAuthResponse> loginStudent(@RequestBody @Valid JwtAuthRequest jwtAuthRequest) throws Exception {
         authenticate(jwtAuthRequest.getUsername(), jwtAuthRequest.getPassword());
         UserDetails userDetails = userDetailsService.loadUserByUsername(jwtAuthRequest.getUsername());
