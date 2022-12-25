@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
 import java.util.Random;
 
 @Document(collection = "student")
@@ -32,17 +33,20 @@ public class Student {
 
     private StudentParameter studentParameter;
 
+    private HashMap<String,Integer> studentMarks;
+
     private String role = "ROLE_STUDENT";
 
     public Student() {
     }
 
-    public Student(String studentId, String studentName, String email, String password, StudentParameter studentParameter, String role) {
+    public Student(String studentId, String studentName, String email, String password, StudentParameter studentParameter, HashMap<String, Integer> studentMarks, String role) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.email = email;
         this.password = password;
         this.studentParameter = studentParameter;
+        this.studentMarks = studentMarks;
         this.role = role;
     }
 
@@ -86,6 +90,14 @@ public class Student {
         this.studentParameter = studentParameter;
     }
 
+    public HashMap<String, Integer> getStudentMarks() {
+        return studentMarks;
+    }
+
+    public void setStudentMarks(HashMap<String, Integer> studentMarks) {
+        this.studentMarks = studentMarks;
+    }
+
     public String getRole() {
         return role;
     }
@@ -102,6 +114,7 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", studentParameter=" + studentParameter +
+                ", studentMarks=" + studentMarks +
                 ", role='" + role + '\'' +
                 '}';
     }
