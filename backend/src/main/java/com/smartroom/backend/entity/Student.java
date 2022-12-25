@@ -3,9 +3,10 @@ package com.smartroom.backend.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
-import java.util.UUID;
+import java.util.Random;
 
 @Document(collection = "student")
 public class Student {
@@ -20,8 +21,13 @@ public class Student {
     @NotEmpty
     private String studentName;
 
+    @NotNull
+    @NotEmpty
+    @Email
+    private String email;
 
-    private String password = UUID.randomUUID().toString();
+
+    private String password = String.valueOf(new Random().nextInt(999999));
 
 
     private StudentParameter studentParameter;
@@ -31,10 +37,13 @@ public class Student {
     public Student() {
     }
 
-    public Student(String studentId, String studentName, StudentParameter studentParameter) {
+    public Student(String studentId, String studentName, String email, String password, StudentParameter studentParameter, String role) {
         this.studentId = studentId;
         this.studentName = studentName;
+        this.email = email;
+        this.password = password;
         this.studentParameter = studentParameter;
+        this.role = role;
     }
 
     public String getStudentId() {
@@ -45,14 +54,6 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getStudentName() {
         return studentName;
     }
@@ -61,10 +62,25 @@ public class Student {
         this.studentName = studentName;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public StudentParameter getStudentParameter() {
         return studentParameter;
     }
-
 
     public void setStudentParameter(StudentParameter studentParameter) {
         this.studentParameter = studentParameter;
@@ -83,6 +99,7 @@ public class Student {
         return "Student{" +
                 "studentId='" + studentId + '\'' +
                 ", studentName='" + studentName + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", studentParameter=" + studentParameter +
                 ", role='" + role + '\'' +

@@ -27,17 +27,6 @@ public class AuthenticationExceptionHandler {
         return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
     }
 
-    @ExceptionHandler(value = {RuntimeException.class})
-    public ResponseEntity<Object> handleGenericException(RuntimeException runtimeException) {
-        ApiError apiError = new ApiError(
-                runtimeException.getMessage(),
-                HttpStatus.UNPROCESSABLE_ENTITY.value(),
-                HttpStatus.UNPROCESSABLE_ENTITY
-        );
-
-        return new ResponseEntity<>(apiError, HttpStatus.UNPROCESSABLE_ENTITY);
-    }
-
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<Object> handleUserNameNotFoundException(UsernameNotFoundException usernameNotFoundException) {
         ApiError apiError = new ApiError(
@@ -79,8 +68,8 @@ public class AuthenticationExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception exception){
-        ApiError apiError = new ApiError(exception.getMessage() ,HttpStatus.UNPROCESSABLE_ENTITY.value(),HttpStatus.UNPROCESSABLE_ENTITY);
-        return new ResponseEntity<>(apiError,HttpStatus.UNPROCESSABLE_ENTITY);
+        ApiError apiError = new ApiError("Unable to process request try again later" ,HttpStatus.INTERNAL_SERVER_ERROR.value(),HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private void getInvalidFields(List<FieldError> errorList, List<InvalidField> invalidFields) {

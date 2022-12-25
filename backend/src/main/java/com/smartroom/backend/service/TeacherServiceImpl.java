@@ -1,5 +1,6 @@
 package com.smartroom.backend.service;
 
+import com.smartroom.backend.email.EmailSender;
 import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.model.StudentModel;
 import com.smartroom.backend.repository.TeacherRepository;
@@ -15,10 +16,13 @@ public class TeacherServiceImpl implements TeacherService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final EmailSender emailSender;
+
     @Autowired
-    TeacherServiceImpl(TeacherRepository teacherRepository,PasswordEncoder passwordEncoder) {
+    TeacherServiceImpl(TeacherRepository teacherRepository, PasswordEncoder passwordEncoder, EmailSender emailSender) {
         this.teacherRepository = teacherRepository;
         this.passwordEncoder = passwordEncoder;
+        this.emailSender = emailSender;
     }
 
     @Override
@@ -27,10 +31,17 @@ public class TeacherServiceImpl implements TeacherService {
             String password = student.getPassword();
             System.out.println("Student password:- " + password);
             student.setPassword(passwordEncoder.encode(password));
-            return teacherRepository.createStudent(student);
-
+            StudentModel savedStudent = teacherRepository.createStudent(student);
+            String emailSubject = "User Id :- " +
+                    student.getStudentId() + "\n" + "Password :- " + password;
+            emailSender.sendEmail(savedStudent.getEmail(),emailSubject, "SmartRoom Credentials");
+            return savedStudent;
         } catch (DuplicateKeyException e) {
             throw new DuplicateKeyException("Student with this id is already created");
+        }
+        catch (Exception e){
+
+            throw new Exception(e.getLocalizedMessage());
         }
     }
 }

@@ -6,20 +6,23 @@ public class StudentModel {
 
     private String password;
 
+    private String email;
+
     public StudentModel() {
     }
 
-    public StudentModel(String username, String password) {
-        this.studentId = username;
+    public StudentModel(String studentId, String password, String email) {
+        this.studentId = studentId;
         this.password = password;
+        this.email = email;
     }
 
-    public String getUsername() {
+    public String getStudentId() {
         return studentId;
     }
 
-    public void setUsername(String username) {
-        this.studentId = username;
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
     }
 
     public String getPassword() {
@@ -28,5 +31,13 @@ public class StudentModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -21,7 +21,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     public StudentModel createStudent(Student student) throws Exception {
         try {
             mongoOperations.insert(student, "student");
-            StudentModel studentModel = new StudentModel(student.getStudentId() , student.getPassword());
+            StudentModel studentModel = new StudentModel(student.getStudentId() , student.getPassword(),student.getEmail());
             return studentModel;
         } catch (DuplicateKeyException e) {
             throw new DuplicateKeyException("Student with this id is already created");
