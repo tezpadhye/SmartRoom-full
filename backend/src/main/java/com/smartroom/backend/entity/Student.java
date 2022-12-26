@@ -6,6 +6,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -33,20 +34,23 @@ public class Student {
 
     private StudentParameter studentParameter;
 
-    private HashMap<String,Integer> studentMarks;
+    private HashMap<String, ArrayList<Integer>> studentMarks1;
+
+    private HashMap<String,ArrayList<Integer>> studentMarks2;
 
     private String role = "ROLE_STUDENT";
 
     public Student() {
     }
 
-    public Student(String studentId, String studentName, String email, String password, StudentParameter studentParameter, HashMap<String, Integer> studentMarks, String role) {
+    public Student(String studentId, String studentName, String email, String password, StudentParameter studentParameter, HashMap<String, ArrayList<Integer>> studentMarks1, HashMap<String, ArrayList<Integer>> studentMarks2, String role) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.email = email;
         this.password = password;
         this.studentParameter = studentParameter;
-        this.studentMarks = studentMarks;
+        this.studentMarks1 = studentMarks1;
+        this.studentMarks2 = studentMarks2;
         this.role = role;
     }
 
@@ -90,12 +94,20 @@ public class Student {
         this.studentParameter = studentParameter;
     }
 
-    public HashMap<String, Integer> getStudentMarks() {
-        return studentMarks;
+    public HashMap<String, ArrayList<Integer>> getStudentMarks1() {
+        return studentMarks1;
     }
 
-    public void setStudentMarks(HashMap<String, Integer> studentMarks) {
-        this.studentMarks = studentMarks;
+    public void setStudentMarks1(HashMap<String, ArrayList<Integer>> studentMarks1) {
+        this.studentMarks1 = studentMarks1;
+    }
+
+    public HashMap<String, ArrayList<Integer>> getStudentMarks2() {
+        return studentMarks2;
+    }
+
+    public void setStudentMarks2(HashMap<String, ArrayList<Integer>> studentMarks2) {
+        this.studentMarks2 = studentMarks2;
     }
 
     public String getRole() {
@@ -114,7 +126,8 @@ public class Student {
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
                 ", studentParameter=" + studentParameter +
-                ", studentMarks=" + studentMarks +
+                ", studentMarks1=" + studentMarks1 +
+                ", studentMarks2=" + studentMarks2 +
                 ", role='" + role + '\'' +
                 '}';
     }
