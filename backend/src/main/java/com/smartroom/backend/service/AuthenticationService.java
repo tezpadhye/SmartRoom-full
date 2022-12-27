@@ -13,7 +13,5 @@ public interface AuthenticationService {
 
     void deleteAllTeacher();
 
-    List<Student> fetchAllStudent();
-
     void deleteAllStudent();
 }

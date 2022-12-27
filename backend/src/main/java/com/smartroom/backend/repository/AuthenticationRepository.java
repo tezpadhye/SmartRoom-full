@@ -13,11 +13,7 @@ public interface AuthenticationRepository {
 
     List<Teacher> fetchAll() throws Exception;
 
-    Student getStudentById(String userId) throws Exception;
-
     void deleteAllTeacher();
-
-    List<Student> fetchAllStudent();
 
     void deleteAllStudent();
 }
