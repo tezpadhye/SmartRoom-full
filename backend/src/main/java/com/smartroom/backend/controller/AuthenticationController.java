@@ -87,11 +87,7 @@ public class AuthenticationController {
         authenticationService.deleteAllTeacher();
     }
 
-    @GetMapping("/student/fetch/all")
-    public ResponseEntity<List<Student>> fetchAllStudent() throws Exception {
-        List<Student> fetchedStudents = authenticationService.fetchAllStudent();
-        return new ResponseEntity<>(fetchedStudents, HttpStatus.OK);
-    }
+
 
     @DeleteMapping("/delete/student")
     public void deleteAllStudent(){

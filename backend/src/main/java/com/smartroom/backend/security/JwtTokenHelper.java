@@ -14,6 +14,7 @@ import java.util.function.Function;
 @Component
 public class JwtTokenHelper {
 
+
     public static final long JWT_TOKEN_VALIDITY = 30 * 60 * 60 * 60 * 60;
 
     public String secret = "jwtTokenKey";

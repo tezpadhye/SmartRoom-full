@@ -1,8 +1,7 @@
 package com.smartroom.backend.service;
 
-import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.Teacher;
-import com.smartroom.backend.exception.InvalidMatchingPasswordException;
+import com.smartroom.backend.exception.InvalidParameter;
 import com.smartroom.backend.repository.AuthenticationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -35,7 +34,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 authenticationRepository.createTeacher(teacher);
                 return teacher;
             } else {
-                throw new InvalidMatchingPasswordException("Password doesn't matches with matching password");
+                throw new InvalidParameter("Password doesn't matches with matching password");
             }
         } catch (DuplicateKeyException e) {
             throw new DuplicateKeyException("Teacher with this id is already created");
@@ -57,10 +56,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         authenticationRepository.deleteAllTeacher();
     }
 
-    @Override
-    public List<Student> fetchAllStudent() {
-        return authenticationRepository.fetchAllStudent();
-    }
 
     @Override
     public void deleteAllStudent() {

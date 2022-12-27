@@ -3,6 +3,7 @@ package com.smartroom.backend.security;
 import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.Teacher;
 import com.smartroom.backend.repository.AuthenticationRepository;
+import com.smartroom.backend.repository.TeacherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,9 +15,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final AuthenticationRepository authenticationRepository;
 
+    private final TeacherRepository teacherRepository;
+
     @Autowired
-    public CustomUserDetailsService(AuthenticationRepository authenticationRepository) {
+    public CustomUserDetailsService(AuthenticationRepository authenticationRepository,TeacherRepository teacherRepository) {
         this.authenticationRepository = authenticationRepository;
+        this.teacherRepository = teacherRepository;
     }
 
     @Override
@@ -33,7 +37,7 @@ public class CustomUserDetailsService implements UserDetailsService {
             }
         } else if (userId.contains("student")) {
             try {
-                Student student = authenticationRepository.getStudentById(userId);
+                Student student = teacherRepository.getStudentById(userId);
                 if(student == null){
                     throw new UsernameNotFoundException("No student with given name found");
                 }

@@ -3,10 +3,15 @@ package com.smartroom.backend.entity;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.HashMap;
+import java.util.Random;
+
 import java.util.Random;
 import java.util.UUID;
+
 
 @Document(collection = "student")
 public class Student {
@@ -21,21 +26,32 @@ public class Student {
     @NotEmpty
     private String studentName;
 
+    @NotNull
+    @NotEmpty
+    @Email
+    private String email;
+
+    private String password = String.valueOf(new Random().nextInt(999999));
+
+    private StudentDetails studentDetails;
 
     private String password = String.valueOf(new Random().nextInt(999999));;
 
 
-    private StudentParameter studentParameter;
+
 
     private String role = "ROLE_STUDENT";
 
     public Student() {
     }
 
-    public Student(String studentId, String studentName, StudentParameter studentParameter) {
+    public Student(String studentId, String studentName, String email, String password, StudentDetails studentDetails, String role) {
         this.studentId = studentId;
         this.studentName = studentName;
-        this.studentParameter = studentParameter;
+        this.email = email;
+        this.password = password;
+        this.studentDetails = studentDetails;
+        this.role = role;
     }
 
     public String getStudentId() {
@@ -46,14 +62,6 @@ public class Student {
         this.studentId = studentId;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getStudentName() {
         return studentName;
     }
@@ -62,13 +70,28 @@ public class Student {
         this.studentName = studentName;
     }
 
-    public StudentParameter getStudentParameter() {
-        return studentParameter;
+    public String getEmail() {
+        return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-    public void setStudentParameter(StudentParameter studentParameter) {
-        this.studentParameter = studentParameter;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public StudentDetails getStudentDetails() {
+        return studentDetails;
+    }
+
+    public void setStudentDetails(StudentDetails studentDetails) {
+        this.studentDetails = studentDetails;
     }
 
     public String getRole() {
@@ -84,8 +107,9 @@ public class Student {
         return "Student{" +
                 "studentId='" + studentId + '\'' +
                 ", studentName='" + studentName + '\'' +
+                ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", studentParameter=" + studentParameter +
+                ", studentDetails=" + studentDetails +
                 ", role='" + role + '\'' +
                 '}';
     }
