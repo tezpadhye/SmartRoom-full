@@ -3,7 +3,6 @@ package com.smartroom.backend.exception;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -55,8 +54,8 @@ public class AuthenticationExceptionHandler {
         return new ResponseEntity<>(notValidError, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(InvalidMatchingPasswordException.class)
-    public ResponseEntity<Object> handleInvalidMatchingPassword(InvalidMatchingPasswordException passwordException) {
+    @ExceptionHandler(InvalidParameter.class)
+    public ResponseEntity<Object> handleInvalidMatchingPassword(InvalidParameter passwordException) {
         ApiError apiError = new ApiError(
                 passwordException.getMessage(),
                 HttpStatus.BAD_REQUEST.value(),
@@ -68,7 +67,9 @@ public class AuthenticationExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handleException(Exception exception){
-        ApiError apiError = new ApiError("Unable to process request try again later" ,HttpStatus.INTERNAL_SERVER_ERROR.value(),HttpStatus.INTERNAL_SERVER_ERROR);
+
+        ApiError apiError = new ApiError(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR.value(),HttpStatus.INTERNAL_SERVER_ERROR);
+
         return new ResponseEntity<>(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
     }
 

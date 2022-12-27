@@ -8,6 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Random;
 
+
 @Document(collection = "student")
 public class Student {
 
@@ -30,19 +31,19 @@ public class Student {
     private String password = String.valueOf(new Random().nextInt(999999));
 
 
-    private StudentParameter studentParameter;
+    private StudentDetails studentDetails;
 
     private String role = "ROLE_STUDENT";
 
     public Student() {
     }
 
-    public Student(String studentId, String studentName, String email, String password, StudentParameter studentParameter, String role) {
+    public Student(String studentId, String studentName, String email, String password, StudentDetails studentDetails, String role) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.email = email;
         this.password = password;
-        this.studentParameter = studentParameter;
+        this.studentDetails = studentDetails;
         this.role = role;
     }
 
@@ -78,12 +79,12 @@ public class Student {
         this.password = password;
     }
 
-    public StudentParameter getStudentParameter() {
-        return studentParameter;
+    public StudentDetails getStudentDetails() {
+        return studentDetails;
     }
 
-    public void setStudentParameter(StudentParameter studentParameter) {
-        this.studentParameter = studentParameter;
+    public void setStudentDetails(StudentDetails studentDetails) {
+        this.studentDetails = studentDetails;
     }
 
     public String getRole() {
@@ -101,7 +102,7 @@ public class Student {
                 ", studentName='" + studentName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", studentParameter=" + studentParameter +
+                ", studentDetails=" + studentDetails +
                 ", role='" + role + '\'' +
                 '}';
     }

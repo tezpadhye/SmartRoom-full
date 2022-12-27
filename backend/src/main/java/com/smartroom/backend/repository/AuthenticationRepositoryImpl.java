@@ -44,26 +44,14 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
         }
     }
 
-    @Override
-    public Student getStudentById(String studentId) throws Exception {
-        try {
-            Query findQuery = new Query();
-            findQuery.addCriteria(new Criteria("studentId").is(studentId));
-            return mongoOperations.find(findQuery, Student.class,"student").get(0);
-        } catch (UsernameNotFoundException e) {
-            throw new UsernameNotFoundException("Student with id:- " + studentId +" not found");
-        }
-    }
+
 
     @Override
     public void deleteAllTeacher() {
         mongoOperations.remove(new Query() , "teacher");
     }
 
-    @Override
-    public List<Student> fetchAllStudent() {
-        return mongoOperations.findAll(Student.class , "student");
-    }
+
 
     @Override
     public void deleteAllStudent() {
