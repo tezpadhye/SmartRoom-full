@@ -1,6 +1,7 @@
 package com.smartroom.backend.config;
 
 //import com.smartroom.backend.filter.CorsFilter;
+
 import com.smartroom.backend.security.CustomUserDetailsService;
 import com.smartroom.backend.security.JwtAuthenticationEntryPoint;
 import com.smartroom.backend.security.JwtAuthenticationFilter;
@@ -32,8 +33,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
-    private final String[] WHITELIST_URLS = {"/auth/**","/v3/api-docs","/v2/api-docs","/swagger-resources/**",
-            "/swagger-ui/**","/webjars/**"};
+    private final String[] WHITELIST_URLS = {"/auth/**", "/v3/api-docs", "/v2/api-docs", "/swagger-resources/**",
+            "/swagger-ui/**", "/webjars/**"};
 
     private final CustomUserDetailsService customUserDetailsService;
 

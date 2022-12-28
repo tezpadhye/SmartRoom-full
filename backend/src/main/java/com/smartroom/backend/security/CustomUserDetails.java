@@ -23,10 +23,10 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         HashSet<SimpleGrantedAuthority> roleSet = new HashSet<>();
-        if(student == null) {
+        if (student == null) {
             roleSet.add(new SimpleGrantedAuthority(teacher.getRole()));
         }
-        if(teacher == null){
+        if (teacher == null) {
             roleSet.add(new SimpleGrantedAuthority(student.getRole()));
         }
         return roleSet;
@@ -37,8 +37,7 @@ public class CustomUserDetails implements UserDetails {
 
         if (teacher == null) {
             return student.getPassword();
-        }
-        else {
+        } else {
             return teacher.getPassword();
         }
     }
@@ -47,8 +46,7 @@ public class CustomUserDetails implements UserDetails {
     public String getUsername() {
         if (student == null) {
             return teacher.getTeacherId();
-        }
-        else{
+        } else {
             return student.getStudentId();
         }
     }

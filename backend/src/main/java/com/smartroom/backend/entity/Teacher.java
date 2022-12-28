@@ -28,7 +28,7 @@ public class Teacher {
     @Transient
     private String matchingPassword;
 
-    private  String role = "ROLE_TEACHER";
+    private String role = "ROLE_TEACHER";
 
     public Teacher() {
     }

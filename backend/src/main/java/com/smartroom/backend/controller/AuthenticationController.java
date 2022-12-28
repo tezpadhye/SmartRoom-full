@@ -1,6 +1,5 @@
 package com.smartroom.backend.controller;
 
-import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.Teacher;
 import com.smartroom.backend.security.JwtAuthRequest;
 import com.smartroom.backend.security.JwtAuthResponse;
@@ -88,9 +87,8 @@ public class AuthenticationController {
     }
 
 
-
     @DeleteMapping("/delete/student")
-    public void deleteAllStudent(){
+    public void deleteAllStudent() {
         authenticationService.deleteAllStudent();
     }
 

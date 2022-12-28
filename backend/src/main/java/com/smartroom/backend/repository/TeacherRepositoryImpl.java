@@ -26,7 +26,7 @@ public class TeacherRepositoryImpl implements TeacherRepository {
     public StudentModel createStudent(Student student) throws Exception {
         try {
             mongoOperations.insert(student, "student");
-            StudentModel studentModel = new StudentModel(student.getStudentId() , student.getPassword(),student.getEmail());
+            StudentModel studentModel = new StudentModel(student.getStudentId(), student.getPassword(), student.getEmail());
             return studentModel;
         } catch (DuplicateKeyException e) {
             throw new DuplicateKeyException("Student with this id is already created");
@@ -38,20 +38,20 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         try {
             Query findQuery = new Query();
             findQuery.addCriteria(new Criteria("studentId").is(studentId));
-            return mongoOperations.find(findQuery, Student.class,"student").get(0);
+            return mongoOperations.find(findQuery, Student.class, "student").get(0);
         } catch (UsernameNotFoundException e) {
-            throw new UsernameNotFoundException("Student with id:- " + studentId +" not found");
+            throw new UsernameNotFoundException("Student with id:- " + studentId + " not found");
         }
     }
 
     @Override
     public Student updateStudent(Student student) {
-       Student updatedStudent =  mongoOperations.save(student);
-       return updatedStudent;
+        Student updatedStudent = mongoOperations.save(student);
+        return updatedStudent;
     }
 
     @Override
     public List<Student> fetchAllStudent() {
-        return mongoOperations.findAll(Student.class , "student");
+        return mongoOperations.findAll(Student.class, "student");
     }
 }

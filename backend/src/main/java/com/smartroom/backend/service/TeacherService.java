@@ -16,5 +16,5 @@ public interface TeacherService {
 
     List<Student> fetchAllStudent() throws Exception;
 
-    Integer predictResult(String studentId, Student subject) throws Exception;
+    Integer predictResult(String studentId, String subject) throws Exception;
 }

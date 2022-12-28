@@ -18,7 +18,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final TeacherRepository teacherRepository;
 
     @Autowired
-    public CustomUserDetailsService(AuthenticationRepository authenticationRepository,TeacherRepository teacherRepository) {
+    public CustomUserDetailsService(AuthenticationRepository authenticationRepository, TeacherRepository teacherRepository) {
         this.authenticationRepository = authenticationRepository;
         this.teacherRepository = teacherRepository;
     }
@@ -27,23 +27,22 @@ public class CustomUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         if (userId.contains("teacher")) {
             try {
-               Teacher teacher = authenticationRepository.getTeacherById(userId);
+                Teacher teacher = authenticationRepository.getTeacherById(userId);
                 if (teacher == null) {
                     throw new UsernameNotFoundException("No teacher with given name found");
                 }
-                return new CustomUserDetails(teacher,null);
+                return new CustomUserDetails(teacher, null);
             } catch (Exception e) {
                 throw new RuntimeException();
             }
         } else if (userId.contains("student")) {
             try {
                 Student student = teacherRepository.getStudentById(userId);
-                if(student == null){
+                if (student == null) {
                     throw new UsernameNotFoundException("No student with given name found");
                 }
-                return new CustomUserDetails(null,student);
-            }
-            catch (Exception e){
+                return new CustomUserDetails(null, student);
+            } catch (Exception e) {
                 throw new RuntimeException();
             }
         } else {

@@ -33,6 +33,8 @@ public class Student {
 
     private StudentDetails studentDetails;
 
+
+
     private String role = "ROLE_STUDENT";
 
     public Student() {

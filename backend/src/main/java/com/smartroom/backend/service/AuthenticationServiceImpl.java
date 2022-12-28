@@ -43,10 +43,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public List<Teacher> fetchAllTeacher() throws Exception {
-        try{
+        try {
             return authenticationRepository.fetchAll();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             throw new Exception();
         }
     }

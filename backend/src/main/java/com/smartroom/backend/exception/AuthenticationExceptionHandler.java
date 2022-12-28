@@ -66,11 +66,11 @@ public class AuthenticationExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<Object> handleException(Exception exception){
+    public ResponseEntity<Object> handleException(Exception exception) {
 
-        ApiError apiError = new ApiError(exception.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR.value(),HttpStatus.INTERNAL_SERVER_ERROR);
+        ApiError apiError = new ApiError(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value(), HttpStatus.INTERNAL_SERVER_ERROR);
 
-        return new ResponseEntity<>(apiError,HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(apiError, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     private void getInvalidFields(List<FieldError> errorList, List<InvalidField> invalidFields) {

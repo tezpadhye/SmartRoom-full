@@ -1,11 +1,7 @@
 package com.smartroom.backend.controller;
 
 import com.smartroom.backend.entity.Student;
-
 import com.smartroom.backend.entity.StudentDetails;
-
-import com.smartroom.backend.entity.Teacher;
-
 import com.smartroom.backend.model.StudentModel;
 import com.smartroom.backend.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,20 +22,20 @@ public class TeacherController {
     private final TeacherService teacherService;
 
     @Autowired
-    TeacherController(TeacherService teacherService){
+    TeacherController(TeacherService teacherService) {
         this.teacherService = teacherService;
     }
 
 
     @PostMapping("/create/student")
     public ResponseEntity<StudentModel> createStudent(@RequestBody @Valid Student student) throws Exception {
-        StudentModel  createdStudent =  teacherService.createStudent(student);
-        return new ResponseEntity<>(createdStudent,HttpStatus.CREATED);
+        StudentModel createdStudent = teacherService.createStudent(student);
+        return new ResponseEntity<>(createdStudent, HttpStatus.CREATED);
     }
 
-    @PutMapping("/update/student")
-    public ResponseEntity<Student> updateStudentData(@RequestParam("studentId") String studentId , @RequestBody StudentDetails studentDetails) throws Exception {
-        Student updatedStudent = teacherService.updateStudent(studentId,studentDetails);
+    @PutMapping("/update/student/{studentId}")
+    public ResponseEntity<Student> updateStudentData(@PathVariable("studentId") String studentId, @RequestBody StudentDetails studentDetails) throws Exception {
+        Student updatedStudent = teacherService.updateStudent(studentId, studentDetails);
         return new ResponseEntity<>(updatedStudent, HttpStatus.CREATED);
     }
 
@@ -49,12 +45,11 @@ public class TeacherController {
         return new ResponseEntity<>(fetchedStudents, HttpStatus.OK);
     }
 
-    @GetMapping("/predict")
-    public ResponseEntity<Integer> predictStudentResult(@RequestParam("studentId") String studentId , @RequestParam("subject") Student subject) throws Exception {
+    @GetMapping("/predict/{studentId}/{subject}")
+    public ResponseEntity<Integer> predictStudentResult(@PathVariable("studentId") String studentId, @PathVariable("subject") String subject) throws Exception {
         Integer predictedResult = teacherService.predictResult(studentId, subject);
         return new ResponseEntity<>(predictedResult, HttpStatus.OK);
     }
-
 
 
 }
