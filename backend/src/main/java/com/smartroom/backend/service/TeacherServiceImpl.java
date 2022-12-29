@@ -77,9 +77,9 @@ public class TeacherServiceImpl implements TeacherService {
     }
 
     @Override
-    public Integer predictResult(String studentId, String subject) throws Exception {
+    public String predictResult(String studentId, String subject) throws Exception {
         Student student = getStudentById(studentId);
-        if(student.getStudentDetails().getPrediction() == null) {
+        if(student.getStudentDetails().getPredictedResult().get(subject) == null) {
             HashMap<String, ArrayList<Integer>> studentMarks = student.getStudentDetails().getStudentMarks();
             if (!studentMarks.containsKey(subject) && !subject.equals("overall")) {
                 throw new InvalidParameter("Invalid subject,Subject not available");
@@ -93,8 +93,11 @@ public class TeacherServiceImpl implements TeacherService {
 
                 try {
                     LinkedHashMap<String, Object> params = getMLParams(student.getStudentDetails(), totalMarks);
-                    Integer predictedResult =  getPrediction(params);
-                    student.getStudentDetails().setPrediction(predictedResult);
+                    String predictedResult =  getPrediction(params);
+                    HashMap<String,String> storedPrediction = student.getStudentDetails().getPredictedResult();
+                    storedPrediction.put(subject,predictedResult);
+                    student.getStudentDetails().setPredictedResult(storedPrediction);
+                //    System.out.println("prediction :-"+ student.getStudentDetails().getPredictedResult());
                     updateStudent(studentId,student.getStudentDetails());
                     return predictedResult;
                 } catch (Exception e) {
@@ -103,7 +106,7 @@ public class TeacherServiceImpl implements TeacherService {
             }
         }
         else{
-            return student.getStudentDetails().getPrediction();
+            return student.getStudentDetails().getPredictedResult().get(subject);
         }
     }
 
@@ -116,7 +119,7 @@ public class TeacherServiceImpl implements TeacherService {
         }
     }
 
-    private Integer getPrediction(LinkedHashMap<String, Object> params) throws Exception {
+    private String getPrediction(LinkedHashMap<String, Object> params) throws Exception {
         String url = "http://localhost:80/predict";
 
         HttpHeaders headers = new HttpHeaders();
@@ -128,9 +131,10 @@ public class TeacherServiceImpl implements TeacherService {
         MlRequest mlRequest = new MlRequest(params);
         HttpEntity<MlRequest> request = new HttpEntity<>(mlRequest, headers);
 
-        ResponseEntity<Integer> response = restTemplate.postForEntity(url, request, Integer.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(url, request, String.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             return response.getBody();
+
         } else {
             throw new Exception("Unable to process request");
         }

@@ -132,14 +132,14 @@ public class StudentDetails {
     @NotEmpty
     private Integer absences;
 
-    private Integer prediction;
+    private HashMap<String,String> predictedResult=new HashMap<>();
 
     private HashMap<String, ArrayList<Integer>> studentMarks;
 
     public StudentDetails() {
     }
 
-    public StudentDetails(String standard, String batch, String dob, String fullAddress, String address, Long phone, String motherName, String fatherName, String sex, Integer age, String familySize, String parentStatus, Integer motherEducation, Integer fatherEducation, String motherJob, String fatherJob, Integer travelTime, Integer studyTime, Integer failures, String schoolSupport, String familySupport, String extraPaidClasses, String extraCurricularActivities, String nurseryEducation, String higherEducation, String internet, Integer familyRelationship, Integer freeTime, Integer health, Integer absences, Integer prediction, HashMap<String, ArrayList<Integer>> studentMarks) {
+    public StudentDetails(String standard, String batch, String dob, String fullAddress, String address, Long phone, String motherName, String fatherName, String sex, Integer age, String familySize, String parentStatus, Integer motherEducation, Integer fatherEducation, String motherJob, String fatherJob, Integer travelTime, Integer studyTime, Integer failures, String schoolSupport, String familySupport, String extraPaidClasses, String extraCurricularActivities, String nurseryEducation, String higherEducation, String internet, Integer familyRelationship, Integer freeTime, Integer health, Integer absences, HashMap<String, String> predictedResult, HashMap<String, ArrayList<Integer>> studentMarks) {
         this.standard = standard;
         this.batch = batch;
         this.dob = dob;
@@ -170,7 +170,7 @@ public class StudentDetails {
         this.freeTime = freeTime;
         this.health = health;
         this.absences = absences;
-        this.prediction = prediction;
+        this.predictedResult = predictedResult;
         this.studentMarks = studentMarks;
     }
 
@@ -414,12 +414,12 @@ public class StudentDetails {
         this.absences = absences;
     }
 
-    public Integer getPrediction() {
-        return prediction;
+    public HashMap<String, String> getPredictedResult() {
+        return predictedResult;
     }
 
-    public void setPrediction(Integer prediction) {
-        this.prediction = prediction;
+    public void setPredictedResult(HashMap<String, String> predictedResult) {
+        this.predictedResult = predictedResult;
     }
 
     public HashMap<String, ArrayList<Integer>> getStudentMarks() {
@@ -463,7 +463,7 @@ public class StudentDetails {
                 ", freeTime=" + freeTime +
                 ", health=" + health +
                 ", absences=" + absences +
-                ", prediction=" + prediction +
+                ", predictedResult=" + predictedResult +
                 ", studentMarks=" + studentMarks +
                 '}';
     }

@@ -35,6 +35,7 @@ public class TeacherController {
 
     @PutMapping("/update/student/{studentId}")
     public ResponseEntity<Student> updateStudentData(@PathVariable("studentId") String studentId, @RequestBody StudentDetails studentDetails) throws Exception {
+        System.out.println("student details:- " + studentDetails);
         Student updatedStudent = teacherService.updateStudent(studentId, studentDetails);
         return new ResponseEntity<>(updatedStudent, HttpStatus.CREATED);
     }
@@ -46,8 +47,8 @@ public class TeacherController {
     }
 
     @GetMapping("/predict/{studentId}/{subject}")
-    public ResponseEntity<Integer> predictStudentResult(@PathVariable("studentId") String studentId, @PathVariable("subject") String subject) throws Exception {
-        Integer predictedResult = teacherService.predictResult(studentId, subject);
+    public ResponseEntity<String> predictStudentResult(@PathVariable("studentId") String studentId, @PathVariable("subject") String subject) throws Exception {
+        String predictedResult = teacherService.predictResult(studentId, subject);
         return new ResponseEntity<>(predictedResult, HttpStatus.OK);
     }
 
