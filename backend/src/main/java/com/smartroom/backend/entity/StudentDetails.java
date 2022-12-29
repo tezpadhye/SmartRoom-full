@@ -132,7 +132,7 @@ public class StudentDetails {
     @NotEmpty
     private Integer absences;
 
-    private HashMap<String,String> predictedResult=new HashMap<>();
+    private HashMap<String, String> predictedResult = new HashMap<>();
 
     private HashMap<String, ArrayList<Integer>> studentMarks;
 
