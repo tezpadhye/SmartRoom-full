@@ -1,5 +1,6 @@
 package com.smartroom.backend.controller;
 
+import com.smartroom.backend.email.EmailSender;
 import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.StudentDetails;
 import com.smartroom.backend.model.StudentModel;
@@ -21,9 +22,13 @@ public class TeacherController {
 
     private final TeacherService teacherService;
 
+    private final EmailSender emailSender;
+
     @Autowired
-    TeacherController(TeacherService teacherService) {
+    TeacherController(TeacherService teacherService,EmailSender emailSender) {
+
         this.teacherService = teacherService;
+        this.emailSender = emailSender;
     }
 
 
@@ -49,7 +54,14 @@ public class TeacherController {
     @GetMapping("/predict/{studentId}/{subject}")
     public ResponseEntity<String> predictStudentResult(@PathVariable("studentId") String studentId, @PathVariable("subject") String subject) throws Exception {
         String predictedResult = teacherService.predictResult(studentId, subject);
+
         return new ResponseEntity<>(predictedResult, HttpStatus.OK);
+    }
+
+    @PostMapping("send/email/{studentMail}")
+    public ResponseEntity<String> sendEmail(@RequestBody String message ,@PathVariable("studentMail") String studentMail){
+         emailSender.sendEmail(studentMail,message,"Attention!! Predicted Score");
+         return new ResponseEntity<>("Mail Successfully Send" , HttpStatus.OK);
     }
 
 
