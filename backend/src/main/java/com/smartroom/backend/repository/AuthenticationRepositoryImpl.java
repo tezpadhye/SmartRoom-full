@@ -1,5 +1,6 @@
 package com.smartroom.backend.repository;
 
+import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -61,6 +62,11 @@ public class AuthenticationRepositoryImpl implements AuthenticationRepository {
         } catch (Exception e) {
             throw new Exception(e);
         }
+    }
+
+    @Override
+    public List<Student> fetchAllStudent(){
+        return mongoOperations.findAll(Student.class, "student");
     }
 
 

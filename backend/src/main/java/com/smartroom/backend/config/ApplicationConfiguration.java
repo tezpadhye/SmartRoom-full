@@ -49,9 +49,6 @@ public class ApplicationConfiguration {
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
 
-        javaMailSender.setUsername("msarthak1505@gmail.com");
-        javaMailSender.setPassword("xorpenodkntmhtdr");
-
         javaMailSender.setUsername("smartroom2023@gmail.com");
         javaMailSender.setPassword("eegffykzmbdbxktv");
 
@@ -72,9 +69,6 @@ public class ApplicationConfiguration {
         properties.setProperty("mail.smtp.starttls.enable", "true");
         properties.setProperty("mail.debug", "false");
 
-        properties.setProperty("mail.smtp.connectiontimeout", "5000");
-        properties.setProperty("mail.smtp.timeout", "5000");
-        properties.setProperty("mail.smtp.writetimeout", "5000");
         return properties;
     }
 

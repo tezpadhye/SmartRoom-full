@@ -14,7 +14,5 @@ public interface TeacherService {
 
     Student updateStudent(String studentId, StudentDetails studentDetails) throws Exception;
 
-    List<Student> fetchAllStudent() throws Exception;
-
     String predictResult(String studentId, String subject) throws Exception;
 }

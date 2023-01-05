@@ -1,5 +1,6 @@
 package com.smartroom.backend.service;
 
+import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.Teacher;
 import com.smartroom.backend.exception.InvalidParameter;
 import com.smartroom.backend.repository.AuthenticationRepository;
@@ -42,24 +43,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public List<Teacher> fetchAllTeacher() throws Exception {
+    public List<Student> fetchAllStudent() throws Exception{
         try {
-            return authenticationRepository.fetchAll();
+            return authenticationRepository.fetchAllStudent();
         } catch (Exception e) {
-            throw new Exception();
+            throw new Exception(e.getLocalizedMessage());
         }
     }
 
-    @Override
-    public void deleteAllTeacher() {
-        authenticationRepository.deleteAllTeacher();
-    }
-
-
-    @Override
-    public void deleteAllStudent() {
-        authenticationRepository.deleteAllStudent();
-    }
 
 
 }

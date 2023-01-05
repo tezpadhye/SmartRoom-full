@@ -1,5 +1,6 @@
 package com.smartroom.backend.controller;
 
+import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.Teacher;
 import com.smartroom.backend.security.JwtAuthRequest;
 import com.smartroom.backend.security.JwtAuthResponse;
@@ -63,6 +64,12 @@ public class AuthenticationController {
         return new ResponseEntity<>(new JwtAuthResponse(token), HttpStatus.OK);
     }
 
+    @GetMapping("/student/fetch/all")
+    public ResponseEntity<List<Student>> fetchAllStudent() throws Exception {
+        List<Student> fetchedStudents = authenticationService.fetchAllStudent();
+        return new ResponseEntity<>(fetchedStudents, HttpStatus.OK);
+    }
+
     private void authenticate(String username, String password) throws Exception {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(username, password);
         try {
@@ -73,24 +80,6 @@ public class AuthenticationController {
 
     }
 
-    // to be deleted //
-
-    @GetMapping("/fetch/all")
-    public ResponseEntity<List<Teacher>> fetchAllTeacher() throws Exception {
-        List<Teacher> fetchedTeachers = authenticationService.fetchAllTeacher();
-        return new ResponseEntity<>(fetchedTeachers, HttpStatus.OK);
-    }
-
-    @DeleteMapping("/delete")
-    public void deleteAllTeacher() throws Exception {
-        authenticationService.deleteAllTeacher();
-    }
-
-
-    @DeleteMapping("/delete/student")
-    public void deleteAllStudent() {
-        authenticationService.deleteAllStudent();
-    }
 
 
 }
