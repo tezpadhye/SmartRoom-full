@@ -9,11 +9,5 @@ public interface AuthenticationService {
 
     Teacher createTeacher(Teacher teacher) throws Exception;
 
-    List<Teacher> fetchAllTeacher() throws Exception;
-
-    void deleteAllTeacher();
-
-    void deleteAllStudent();
-
     List<Student> fetchAllStudent() throws Exception;
 }

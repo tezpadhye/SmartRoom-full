@@ -39,13 +39,12 @@ public class Student {
     public Student() {
     }
 
-    public Student(String studentId, String studentName, String email, String password, StudentDetails studentDetails,String role) {
+    public Student(String studentId, String studentName, String email, String password, StudentDetails studentDetails) {
         this.studentId = studentId;
         this.studentName = studentName;
         this.email = email;
         this.password = password;
         this.studentDetails = studentDetails;
-      //  this.role = role;
     }
 
     public String getStudentId() {
@@ -92,9 +91,6 @@ public class Student {
         return role;
     }
 
-//    public void setRole(String role) {
-//        this.role = role;
-//    }
 
     @Override
     public String toString() {

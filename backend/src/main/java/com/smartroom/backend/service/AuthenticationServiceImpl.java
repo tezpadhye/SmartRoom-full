@@ -43,15 +43,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public List<Teacher> fetchAllTeacher() throws Exception {
-        try {
-            return authenticationRepository.fetchAll();
-        } catch (Exception e) {
-            throw new Exception();
-        }
-    }
-
-    @Override
     public List<Student> fetchAllStudent() throws Exception{
         try {
             return authenticationRepository.fetchAllStudent();
@@ -60,16 +51,6 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         }
     }
 
-    @Override
-    public void deleteAllTeacher() {
-        authenticationRepository.deleteAllTeacher();
-    }
-
-
-    @Override
-    public void deleteAllStudent() {
-        authenticationRepository.deleteAllStudent();
-    }
 
 
 }

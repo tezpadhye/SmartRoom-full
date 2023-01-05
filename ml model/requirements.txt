@@ -1,2 +1,0 @@
-scikit-learn==1.1.2
-category_encoders==2.5.1
