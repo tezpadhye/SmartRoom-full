@@ -48,8 +48,10 @@ public class ApplicationConfiguration {
         JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
         javaMailSender.setHost("smtp.gmail.com");
         javaMailSender.setPort(587);
+
         javaMailSender.setUsername("smartroom2023@gmail.com");
         javaMailSender.setPassword("eegffykzmbdbxktv");
+
         javaMailSender.setJavaMailProperties(getMailProperties());
 
         return javaMailSender;

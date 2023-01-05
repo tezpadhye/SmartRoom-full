@@ -70,13 +70,18 @@ public class TeacherServiceImpl implements TeacherService {
     @Override
     public String predictResult(String studentId, String subject) throws Exception {
         Student student = getStudentById(studentId);
+
        if(student.getStudentDetails().getPredictedResult() == null || student.getStudentDetails().getPredictedResult().get(subject) == null) {
+
+        HashMap<String, String> storedPredictedResult = student.getStudentDetails().getPredictedResult();
+        if (storedPredictedResult == null || storedPredictedResult.get(subject) == null) {
+
             HashMap<String, ArrayList<Integer>> studentMarks = student.getStudentDetails().getStudentMarks();
             System.out.println("Student marks: "+studentMarks);
             if (!studentMarks.containsKey(subject) && !subject.equals("overall")) {
                 throw new InvalidParameter("Invalid subject,Subject not available");
             } else {
-                ArrayList<Integer> totalMarks = new ArrayList<>();
+                ArrayList<Integer> totalMarks;
                 if (studentMarks.containsKey(subject)) {
                     totalMarks = studentMarks.get(subject);
                 } else {
@@ -84,22 +89,18 @@ public class TeacherServiceImpl implements TeacherService {
                 }
 
                 try {
-                    System.out.println("Total marks: "+totalMarks);
                     LinkedHashMap<String, Object> params = getMLParams(student.getStudentDetails(), totalMarks);
-                    String predictedResult =  getPrediction(params);
-                    HashMap<String,String> storedPrediction = student.getStudentDetails().getPredictedResult();
-                    storedPrediction.put(subject,predictedResult);
-                    student.getStudentDetails().setPredictedResult(storedPrediction);
-                //    System.out.println("prediction :-"+ student.getStudentDetails().getPredictedResult());
-                    updateStudent(studentId,student.getStudentDetails());
+                    String predictedResult = getPrediction(params);
+                    storedPredictedResult.put(subject, predictedResult);
+                    student.getStudentDetails().setPredictedResult(storedPredictedResult);
+                    updateStudent(studentId, student.getStudentDetails());
                     return predictedResult;
                 } catch (Exception e) {
                     throw new Exception(e.getMessage());
                 }
             }
-        }
-        else{
-            return student.getStudentDetails().getPredictedResult().get(subject);
+        } else {
+            return storedPredictedResult.get(subject);
         }
     }
 
@@ -168,9 +169,14 @@ public class TeacherServiceImpl implements TeacherService {
     private ArrayList<Integer> getTotalMarks(HashMap<String, ArrayList<Integer>> studentMarks) {
         ArrayList<Integer> totalMarks = new ArrayList<>();
         int term1 = 0, term2 = 0;
+
         int totalSubject = studentMarks.size();
         for (Map.Entry entry : studentMarks.entrySet()) {
             ArrayList<Integer> marks = (ArrayList<Integer>) entry.getValue();
+
+        for (Map.Entry<String, ArrayList<Integer>> entry : studentMarks.entrySet()) {
+            ArrayList<Integer> marks = entry.getValue();
+
             term1 += marks.get(0);
             term2 += marks.get(1);
         }
