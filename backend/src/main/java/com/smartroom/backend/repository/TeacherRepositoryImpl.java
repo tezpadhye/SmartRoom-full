@@ -50,8 +50,4 @@ public class TeacherRepositoryImpl implements TeacherRepository {
         return updatedStudent;
     }
 
-    @Override
-    public List<Student> fetchAllStudent() {
-        return mongoOperations.findAll(Student.class, "student");
-    }
 }

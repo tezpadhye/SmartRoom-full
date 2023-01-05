@@ -1,5 +1,6 @@
 package com.smartroom.backend.service;
 
+import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.Teacher;
 
 import java.util.List;
@@ -13,4 +14,6 @@ public interface AuthenticationService {
     void deleteAllTeacher();
 
     void deleteAllStudent();
+
+    List<Student> fetchAllStudent() throws Exception;
 }

@@ -23,7 +23,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public StudentDetails getStudentDetails(String studentId) {
+    public Student getStudentDetails(String studentId) {
       try {
           return studentRepository.getStudentById(studentId);
       }

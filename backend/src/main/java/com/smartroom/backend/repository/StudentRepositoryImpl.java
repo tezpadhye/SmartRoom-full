@@ -20,11 +20,11 @@ public class StudentRepositoryImpl implements StudentRepository{
     }
 
     @Override
-    public StudentDetails getStudentById(String studentId) {
+    public Student getStudentById(String studentId) {
         try {
             Query findQuery = new Query();
             findQuery.addCriteria(new Criteria("studentId").is(studentId));
-            return mongoOperations.find(findQuery, Student.class, "student").get(0).getStudentDetails();
+            return mongoOperations.find(findQuery, Student.class, "student").get(0);
         } catch (UsernameNotFoundException e) {
             throw new UsernameNotFoundException("Student with id:- " + studentId + " not found");
         }

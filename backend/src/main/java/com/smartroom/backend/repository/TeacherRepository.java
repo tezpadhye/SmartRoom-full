@@ -12,6 +12,4 @@ public interface TeacherRepository {
     Student getStudentById(String studentId) throws Exception;
 
     Student updateStudent(Student student);
-
-    List<Student> fetchAllStudent();
 }

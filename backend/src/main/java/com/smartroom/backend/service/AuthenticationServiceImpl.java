@@ -1,5 +1,6 @@
 package com.smartroom.backend.service;
 
+import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.Teacher;
 import com.smartroom.backend.exception.InvalidParameter;
 import com.smartroom.backend.repository.AuthenticationRepository;
@@ -47,6 +48,15 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             return authenticationRepository.fetchAll();
         } catch (Exception e) {
             throw new Exception();
+        }
+    }
+
+    @Override
+    public List<Student> fetchAllStudent() throws Exception{
+        try {
+            return authenticationRepository.fetchAllStudent();
+        } catch (Exception e) {
+            throw new Exception(e.getLocalizedMessage());
         }
     }
 

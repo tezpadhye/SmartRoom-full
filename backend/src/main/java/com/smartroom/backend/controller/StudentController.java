@@ -1,5 +1,6 @@
 package com.smartroom.backend.controller;
 
+import com.smartroom.backend.entity.Student;
 import com.smartroom.backend.entity.StudentDetails;
 import com.smartroom.backend.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class StudentController {
     }
 
     @GetMapping("/get/details/{studentId}")
-    public ResponseEntity<StudentDetails> getStudentDetailsById(@PathVariable("studentId") String studentId){
+    public ResponseEntity<Student> getStudentDetailsById(@PathVariable("studentId") String studentId){
         return new ResponseEntity<>(studentService.getStudentDetails(studentId), HttpStatus.OK);
     }
 
