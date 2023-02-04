@@ -25,3 +25,4 @@ coverage.xml
 .csv
 .R
 .ipynb_checkpoints
+.venv
